@@ -1,0 +1,79 @@
+<div class="main-con">
+  <div class="row row-cols-auto">
+    <a class=" fs-5 text-decoration-none text-center my-3 mx-auto"
+    style="cursor: pointer;" (click)="createShow()">
+      <i class="bi bi-pencil-fill"></i> &nbsp; Create Show
+    </a>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-md-6 mb-4" *ngFor="let show of this.shows">
+        <div class="card my-3" >
+          <div *ngIf="!!(show.movie)" class="d-flex justify-content-center align-items-center">
+            <img src="{{show.movie.poster}}" class="card-img-top img-thumbnail tmb w-75" alt="movie poster image">
+          </div>
+          <img *ngIf="!(show.movie)" src="{{show.poster}}" class="card-img-top img-thumbnail tmb" alt="Event image">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <span class="badge bg-primary">{{show.showType}}</span>
+              <div *ngIf="!!(show.movie)" class="d-flex flex-wrap">
+                <span class="badge bg-success mx-1" *ngFor="let genre of show.movie.genres">{{genre}}</span>
+              </div>
+            </div>
+            <div class="text-muted small">
+              <i class="bi bi-calendar"></i> {{show.showDate}}
+              <i class="bi bi-clock ms-2"></i> {{show.showTime}}
+            </div>
+
+            <h5 class="card-title">{{show.showName}}</h5>
+            <p class="card-text">{{show.showDescription}}</p>
+
+            <div class="mb-3">
+              <span class="badge bg-secondary">Duration: {{this.convertDurationToHHMM(show.showDuration)}}</span>
+            </div>
+            <div class="mb-3">
+              <p class="badge bg-light-subtle text-primary" *ngIf="!show.movie">Location: {{show.location}}</p>
+            </div>
+
+            <!-- Headers -->
+            <div class="row" *ngIf="!show.movie">
+              <div class="col-6 border-end">
+                <h6 class="text-muted">Seat Category</h6>
+              </div>
+              <div class="col-6">
+                <h6 class="text-muted">Price</h6>
+              </div>
+            </div>
+
+            <div class="row" *ngFor="let ticket of show.ticketPrice">
+              <div class="col-6 border-end" *ngIf="!show.movie">
+                <p class="mb-0">{{ticket.category}}</p>
+              </div>
+              <div class="col-6" *ngIf="!show.movie">
+                <p class="mb-0 fw-bold">{{ticket.price}}.INR</p>
+              </div>
+            </div>
+
+            <div class=""> <hr></div>
+            <div class="row">
+              <div class="col-6">
+                <a class="btn-danger btn-sm mb-4 fs-6 text-warning text-decoration-none text-center"
+                (click)="editShow(show.showId)" style="cursor: pointer">
+                  <i class="bi bi-pencil-square"></i> &nbsp; Edit
+                </a>
+              </div>
+              <div class="col-6">
+                <a class="btn-danger btn-sm mb-4 fs-6 text-danger text-decoration-none text-center"
+                (click)="deleteShow(show.showId)" style="cursor: pointer">
+                  <i class="bi bi-trash"></i> &nbsp; Delete
+                </a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,58 @@
+<div class="main-con">
+  <div class="card p-3 shadow-sm" style="max-width: 400px; margin: auto;">
+    <h5 class="card-title text-center mb-3">Upload Image</h5>
+
+
+    <div class="mb-3" *ngIf="isScanning">
+      <label for="fileInput" class="form-label">Upload from device</label>
+      <input
+        type="file"
+        accept="image/*"
+        class="form-control"
+        id="fileInput"
+        (change)="onFileSelected($event)"
+      />
+      <div class="text-center">
+        <button class="btn btn-primary" (click)="uploadImage()" [disabled]="!selectedFile">
+          Upload
+        </button>
+      </div>
+    </div>
+
+    <div class="mb-3" *ngIf="!isScanning">
+      <div class="card shadow-sm p-3 mb-3" style="max-width: 500px; margin: auto;"
+      *ngFor="let seat of seats">
+        <div class="card-body">
+          <h5 class="card-title text-primary mb-3">
+            Seat Details
+          </h5>
+
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <strong>Show Name:</strong> {{ seat?.showName }}
+            </li>
+            <li class="list-group-item">
+              <strong>Show Date:</strong> {{ seat?.showDate }}
+            </li>
+            <li class="list-group-item">
+              <strong>Show Time:</strong> {{ seat?.showTime }}
+            </li>
+            <li class="list-group-item">
+              <strong>Row:</strong> {{ seat?.seatId?.rowIndex }}
+            </li>
+            <li class="list-group-item">
+              <strong>Seat Number:</strong> {{ seat?.seatId?.seatNumber }}
+            </li>
+            <li class="list-group-item">
+              <strong>Category:</strong> {{ seat?.category }}
+            </li>
+            <li class="list-group-item" *ngIf="seat.allowedPersons">
+              <strong>Allowed Persons:</strong> {{ seat?.allowedPersons }}
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

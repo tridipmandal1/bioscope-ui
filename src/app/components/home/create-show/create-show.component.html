@@ -1,0 +1,104 @@
+<div class="main-con">
+  <div class="container mt-4 w-50">
+    <h3 *ngIf="!this.show.showId">Create New Show</h3>
+    <h3 *ngIf="this.show.showId">Edit Show</h3>
+    <form (ngSubmit)="submit()">
+      <div class="mb-3">
+        <label class="form-label">Show Name</label>
+        <input class="form-control" [(ngModel)]="show.showName" name="showName" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Movie</label>
+        <select class="form-select" [(ngModel)]="show.movie" name="movie">
+          <option [ngValue]="show.movie" *ngIf="show.movie">{{ show.movie.title }}</option>
+          <option  [ngValue]="null">None</option>
+          <option *ngFor="let movie of movies" [ngValue]="movie">{{ movie.title }}</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Show Type</label>
+        <select class="form-select" [(ngModel)]="show.showType" name="showType">
+          <option [ngValue]="null" [disabled]="true">Select ShowType</option>
+          <option *ngIf="show.showType">{{ show.showType }}</option>
+          <option *ngFor="let type of showTypes">{{ type }}</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Arrangement Type</label>
+        <select class="form-select" [(ngModel)]="show.arrangementType" name="arrangementType">
+          <option [ngValue]="null" [disabled]="true">Select ArrangementType</option>
+          <option *ngIf="show.arrangementType">{{ show.arrangementType }}</option>
+          <option *ngFor="let type of arrangementTypes">{{ type }}</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Capacity</label>
+        <input  class="form-control" [(ngModel)]="show.capacity" name="capacity">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Location</label>
+          <input class="form-control" [(ngModel)]="show.location" name="location" placeholder="123 AB Street, City, State">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Screen</label>
+        <select class="form-select"  [(ngModel)]="show.screenId" name="screenId">
+          <option *ngIf="show.screenId" [ngValue]="show.screenId">{{ this.findScreenFromList(show.screenId)?.screenName }}</option>
+          <option [ngValue]="null" *ngIf="!show.screenId">None</option>
+          <option *ngFor="let screen of screens" [ngValue]="screen.screenId">{{ screen.screenName }}</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Description</label>
+        <textarea class="form-control" [(ngModel)]="show.showDescription" name="showDescription"></textarea>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col">
+          <label class="form-label">Date</label>
+          <input type="date" class="form-control" [(ngModel)]="show.showDate" name="showDate">
+        </div>
+        <div class="col">
+          <label class="form-label">Show Time</label>
+          <input type="time" class="form-control" [(ngModel)]="show.showTime" name="showTime">
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Duration (HH:mm)</label>
+        <input type="time" class="form-control" [(ngModel)]="show.showDuration" name="showDuration">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Image URL</label>
+        <input type="text" class="form-control" [(ngModel)]="show.poster" name="poster">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label p-4">Ticket Categories</label>
+        <div *ngFor="let pass of ticketCategories; let i = index" class="row mb-2">
+          <div class="col">
+            <input type="text" class="form-control" [(ngModel)]="pass.category" [name]="'category' + i" placeholder="Category (e.g., VIP)">
+          </div>
+          <div class="col">
+            <input  class="form-control" [(ngModel)]="pass.price" [name]="'price' + i" placeholder="Price">
+          </div>
+          <div class="col-auto">
+            <button class="btn btn-danger" type="button" (click)="removeTicketCategory(i)">×</button>
+          </div>
+        </div>
+        <button class="btn btn-outline-primary my-auto" type="button" (click)="addTicketCategory()">Add Ticket Category</button>
+      </div>
+      <div class="row-cols-lg-auto d-flex justify-content-center mb-5">
+        <button class="btn btn-danger mt-3 mx-5" (click)="goBack()">Discard</button>
+        <button type="submit" class="btn btn-success mt-3">Save</button>
+      </div>
+    </form>
+  </div>
+</div>

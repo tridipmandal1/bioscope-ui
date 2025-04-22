@@ -1,0 +1,134 @@
+:host {
+  --primary-blue: #118ab2;
+  --primary-yellow: #ffd166;
+  --primary-pink: #ef476f;
+  --light-gray: #f8f9fa;
+  --dark-gray: #343a40;
+}
+
+.movie-title {
+  color: var(--dark-gray);
+  font-weight: 700;
+  font-size: 2.5rem;
+}
+
+.genre-badge {
+  background-color: var(--primary-blue);
+  color: white;
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+}
+
+/* Date Navigation */
+.date-nav {
+  overflow-x: auto;
+  white-space: nowrap;
+  padding-bottom: 10px;
+}
+
+.nav-container {
+  display: inline-flex;
+  min-width: 100%;
+}
+
+.date-btn {
+  min-width: 80px;
+  padding: 10px 15px;
+  margin-right: 10px;
+  border: 1px solid #dee2e6;
+  background-color: white;
+  border-radius: 8px;
+  text-align: center;
+  transition: all 0.3s;
+}
+
+.date-btn:hover {
+  background-color: rgba(17, 138, 178, 0.1);
+}
+
+.date-btn.active {
+  background-color: var(--primary-blue);
+  color: white;
+  border-color: var(--primary-blue);
+}
+
+.date-day {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.date-value {
+  font-size: 0.8rem;
+}
+
+/* Hall Cards */
+.hall-card {
+  background-color: var(--light-gray);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.hall-header {
+  margin-bottom: 15px;
+}
+
+.hall-name {
+  margin-bottom: 5px;
+  color: var(--dark-gray);
+}
+
+.hall-location {
+  color: #6c757d;
+  font-size: 0.9rem;
+  margin-bottom: 0;
+}
+
+.location-icon {
+  color: var(--primary-pink);
+}
+
+/* Show Timings */
+.show-btn {
+  background-color: white;
+  color: var(--dark-gray);
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  padding: 8px 15px;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+
+.show-btn:hover {
+  background-color: var(--primary-yellow);
+  color: var(--dark-gray);
+  border-color: var(--primary-yellow);
+}
+
+.show-btn:active {
+  background-color: var(--primary-yellow) !important;
+  border-color: var(--primary-yellow) !important;
+}
+
+/* No Shows Message */
+.no-shows {
+  color: #6c757d;
+  background-color: var(--light-gray);
+  border-radius: 10px;
+}
+
+.no-shows i {
+  color: var(--primary-pink);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .movie-title {
+    font-size: 2rem;
+  }
+
+  .hall-card {
+    padding: 15px;
+  }
+}

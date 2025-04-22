@@ -1,0 +1,28 @@
+.btn-profile {
+  border-radius: 50%;
+  overflow: hidden;
+  border: none;
+}
+.nav-bar{
+  background-color: #344e41;
+}
+.btn-profile:hover {
+  opacity: 0.8;
+}
+.nav-links{
+  color: white;
+  cursor: pointer;
+}
+.nav-item {
+  font-weight: 600;
+  font-family: Raleway, sans-serif;
+  margin-right: 10px;
+}
+.navbar-brand{
+  font-size: 2rem;
+}
+.disab{
+  pointer-events: none;
+  cursor: default;
+  color: yellow;
+}

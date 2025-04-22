@@ -1,0 +1,112 @@
+/* Custom theme colors */
+:root {
+  --primary-blue: #118ab2;
+  --primary-yellow: #ffd166;
+  --primary-pink: #ef476f;
+}
+
+.movie-card {
+  border: none;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.movie-poster {
+  height: 400px;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.movie-title {
+  color: #118ab2;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.genre-badge {
+  background-color: #ffd166;
+  color: #333;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+}
+
+.movie-info {
+  color: #555;
+}
+
+.stars {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.stars i {
+  color: #ffd166;
+  font-size: 1.2rem;
+}
+
+.rating-value {
+  font-weight: 600;
+  color: #333;
+}
+
+.rate-btn {
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  color: #555;
+  transition: all 0.3s;
+}
+
+.rate-btn:hover {
+  background-color: #ffd166;
+  color: #333;
+}
+
+.book-btn {
+  background-color: #ef476f;
+  color: white;
+  font-weight: 600;
+  padding: 0.75rem 2rem;
+  border-radius: 30px;
+  transition: all 0.3s;
+}
+
+.book-btn:hover {
+  background-color: #ef476f;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.cast-section {
+  background-color: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 10px;
+}
+
+.cast-image {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.cast-name {
+  font-weight: 600;
+  color: var(--primary-blue);
+}
+
+.cast-character {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .movie-poster {
+    height: 300px;
+  }
+
+  .cast-section {
+    margin-top: 2rem;
+  }
+}

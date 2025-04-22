@@ -1,0 +1,89 @@
+<div class="main-c overflow-hidden">
+  <app-toast-notification #toast></app-toast-notification>
+    <div class="">
+      <div class="row">
+        <div class="col-md-6 order-md-1 order-2 promo d-flex  align-items-center vh-100">
+          <div class="d-flex flex-column text-center mx-auto">
+
+            <div class="p-2 d-flex justify-content-center align-items-center">
+              <h2 class="mb-0 text-center ">
+                Why Bioscope?
+              </h2>
+            </div>
+            <div class="p-2 d-flex justify-content-center align-items-center">
+              <i class="bi bi-pc-display fs-1 me-2 px-4"></i>
+              <p class="mb-0 text-center ">
+                User your next event with us in just a few clicks.<br>
+                All you need is a PAN card to verify your identity.
+              </p>
+            </div>
+
+            <div class="p-2 d-flex justify-content-center align-items-center">
+              <i class="bi bi-lightning-charge-fill fs-1 me-2 px-4"></i>
+              <p class="mb-0 text-center ">
+                Easy and fast to host your event with bioscope<br>
+                Try it now and see the difference.
+              </p>
+            </div>
+
+            <div class="p-2 d-flex justify-content-center align-items-center">
+              <i class="bi bi-clipboard-data fs-1 me-2 px-4"></i>
+              <p class="mb-0 text-center ">
+                Watch your insights with our enhanced dashboard<br>
+                Get to know your audience better.
+              </p>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- sign up form -->
+        <div class="col-md-6 order-md-2 order-1 mt-auto my-auto" *ngIf="this.isSignup">
+          <h2 class="text-center text-white py-3">Join Bioscope Today</h2>
+          <form class="w-50 mx-auto" [formGroup]="signUpFormGroup">
+            <div class="mb-3">
+              <label for="email" class="form-label text-white">Email address</label>
+              <input type="email" class="form-control" id="email" formControlName="signupEmail"
+                     placeholder="host@example.com" required>
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label text-white">Password</label>
+              <input type="password" class="form-control" id="password" formControlName="signupPassword"
+                     placeholder="Password" required>
+            </div>
+            <button type="submit" class="btn btn-success" (click)="onSignup()">Sign Up</button>
+          </form>
+          <div class="text-center mt-3">
+            <a  (click)="toggleSignup()" style="cursor: pointer"
+                class="text-white text-decoration-none">Already have an account?</a>
+          </div>
+        </div>
+
+        <!-- login form -->
+
+        <div class="col-md-6 order-md-2 order-1 mt-auto my-auto" *ngIf="!this.isSignup">
+          <h2 class="text-center text-white py-3">Login to your account</h2>
+          <form class="w-50 mx-auto" [formGroup]="loginFormGroup">
+            <div class="mb-3">
+              <label for="email" class="form-label text-white">Email address</label>
+              <input type="email" class="form-control" id="loginEmail" formControlName="loginEmail"
+                     placeholder="host@example.com" required>
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label text-white">Password</label>
+              <input type="password" class="form-control" id="loginPassword" formControlName="loginPassword"
+                     placeholder="Password" required>
+            </div>
+            <button type="submit" class="btn btn-success" (click)="onLogin()">Login</button>
+          </form>
+          <div class="text-center mt-3">
+            <a  (click)="toggleSignup()" style="cursor:pointer;"
+                class="text-white text-decoration-none">Don't have an account?</a>
+          </div>
+          <div class="text-center mt-3">
+            <a  class="text-decoration-none text-white">Forgotten password?</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

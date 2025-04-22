@@ -1,0 +1,106 @@
+:host {
+  --primary-blue: #118ab2;
+  --primary-yellow: #ffd166;
+  --primary-pink: #ef476f;
+  --light-gray: #f8f9fa;
+  --dark-gray: #343a40;
+}
+
+.auth-modal-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1050;
+}
+
+.auth-modal {
+  width: 50%;
+  max-width: 500px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  padding: 2rem;
+  animation: fadeIn 0.3s ease-in-out;
+  position: relative;
+}
+
+.auth-form {
+  h2 {
+    color: var(--primary-blue);
+    margin-bottom: 1.5rem;
+
+    i {
+      color: var(--primary-yellow);
+    }
+  }
+}
+
+   .btn-primary {
+     background-color: var(--primary-blue);
+     border-color: var(--primary-blue);
+
+     &:hover, &:focus {
+       background-color: darken(#118ab2, 10%);
+       border-color: darken(#118ab2, 10%);
+     }
+
+     &:disabled {
+       background-color: lighten(#118ab2, 20%);
+       border-color: lighten(#118ab2, 20%);
+     }
+   }
+
+.toggle-link {
+  color: var(--primary-pink);
+  text-decoration: none;
+  font-weight: 500;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.input-group-text {
+  background-color: var(--light-gray);
+  color: var(--dark-gray);
+}
+
+.btn-toggle-password {
+  cursor: pointer;
+  background-color: var(--light-gray);
+  border-color: #ced4da;
+
+  &:hover {
+    background-color: darken(#f8f9fa, 5%);
+  }
+}
+
+.text-danger {
+  color: var(--primary-pink) !important;
+}
+
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .auth-modal {
+    width: 90%;
+    padding: 1.5rem;
+  }
+}

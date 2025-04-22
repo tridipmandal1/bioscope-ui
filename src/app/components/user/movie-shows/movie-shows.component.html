@@ -1,0 +1,51 @@
+<div class="container mt-4">
+  <!-- Movie Title -->
+  <h1 class="movie-title text-center mb-3">{{ movie.title }}</h1>
+
+  <!-- Movie Genres -->
+  <div class="genres-container text-center mb-4">
+    <span *ngFor="let genre of movie.genres" class="badge genre-badge me-2">
+      {{ genre }}
+    </span>
+  </div>
+
+  <!-- Date Navigation -->
+  <div class="date-nav mb-4">
+    <div class="nav-container">
+      <button
+        *ngFor="let date of availableDates"
+        class="btn date-btn"
+        [class.active]="selectedDate === date.value"
+        (click)="selectDate(date.value)">
+        <div class="date-day">{{ date.day }}</div>
+        <div class="date-value">{{ date.date }}</div>
+      </button>
+    </div>
+  </div>
+
+  <!-- Cinema Halls and Show Timings -->
+  <div class="halls-container">
+    <div *ngFor="let hall of getHallsForSelectedDate()" class="hall-card mb-4">
+      <div class="hall-header">
+        <h3 class="hall-name">{{ hall.name }}</h3>
+        <p class="hall-location">
+          <i class="bi bi-geo-alt-fill location-icon"></i> {{ hall.location }}
+        </p>
+      </div>
+      <div class="show-timings">
+        <button
+          *ngFor="let show of hall.shows"
+          class="btn show-btn me-2 mb-2"
+          (click)="selectShow(hall, show)">
+          <i class="bi bi-clock me-1"></i>{{ show.time }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- No Shows Message -->
+  <div *ngIf="getHallsForSelectedDate().length === 0" class="no-shows text-center p-4">
+    <i class="bi bi-exclamation-circle fs-1 mb-3"></i>
+    <p>No shows available for the selected date.</p>
+  </div>
+</div>

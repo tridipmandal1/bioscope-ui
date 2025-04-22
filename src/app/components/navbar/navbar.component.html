@@ -1,0 +1,63 @@
+<div class="main-c">
+
+  <nav class="navbar navbar-expand-lg navbar-light nav-bar">
+    <div class="container-fluid">
+      <a class="navbar-brand nav-links" href="#">Bioscope</a>
+
+      <!--for mobile -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+              aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link nav-links" [ngClass]="{'disab': this.currentTab === 'screens'}"
+               (click)="changeTab('screens')">My Screens</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav-links" [ngClass]="{'disab': this.currentTab === 'shows'}"
+               (click)="changeTab('shows')"
+            >My Shows</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav-links" [ngClass]="{'disab': this.currentTab === 'trending'}"
+               (click)="changeTab('trending')"
+            >Trending</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav-links" [ngClass]="{'disab': this.currentTab === 'dashboard'}"
+               (click)="changeTab('dashboard')"
+            >Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav-links" [ngClass]="{'disab': this.currentTab === 'ticketChecking'}"
+               (click)="changeTab('ticketChecking')"
+            >
+              <i class="bi bi-qr-code-scan fs-5"></i>
+            </a>
+          </li>
+        </ul>
+
+        <div class="ms-auto">
+          <button class="btn btn-profile p-0" type="button"
+                  data-bs-toggle="collapse" data-bs-target=".colap"
+                  aria-expanded="false" aria-controls="profileDropdown">
+            <i class="bi bi-person-circle fs-2 nav-links"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </nav>
+
+<div class="d-flex justify-content-end">
+  <div class="collapse colap" id="profileDropdown">
+    <div class="card card-body">
+      <a class="dropdown-item" style="cursor:pointer;">{{this.username}}</a>
+      <a class="dropdown-item" (click)="logout()" style="cursor: pointer">Logout</a>
+    </div>
+  </div>
+</div>
+</div>

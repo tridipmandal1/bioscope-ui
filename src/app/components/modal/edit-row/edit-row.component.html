@@ -1,0 +1,42 @@
+<div class="container p-3">
+  <h5 class="mb-3">Row Details</h5>
+  <form (ngSubmit)="save()">
+    <div class="mb-3">
+      <label class="form-label">Row Index</label>
+      <input type="text" class="form-control" [(ngModel)]="rowData.rowIndex" name="rowIndex">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Seats in Row</label>
+      <input type="number" class="form-control" [(ngModel)]="rowData.seatsInRow" name="seatsInRow">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Price in Row</label>
+      <input type="number" class="form-control" [(ngModel)]="rowData.priceInRow" name="priceInRow">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label d-flex align-items-center">
+        Passage Followed
+        <i class="bi bi-info-circle ms-2 text-primary"
+           matTooltip="Enter comma-separated seat positions for passages, e.g., 3,6"></i>
+
+      </label>
+      <input type="text" class="form-control" [(ngModel)]="passageString" name="passageFollowed">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Category</label>
+      <select class="form-select" [(ngModel)]="rowData.category" name="category">
+        <option ngValue="rowData.category">{{rowData.category}}</option>
+        <option *ngFor="let cat of categories">{{ cat }}</option>
+      </select>
+    </div>
+
+    <div class="d-flex justify-content-end gap-2">
+      <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
+      <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+  </form>
+</div>

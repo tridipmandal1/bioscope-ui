@@ -1,0 +1,175 @@
+<div class="auth-modal-container">
+  <div class="auth-modal">
+    <!-- Login Form -->
+    <div *ngIf="isLoginMode" class="auth-form">
+      <h2 class="text-center mb-4">
+        <i class="bi bi-ticket-perforated-fill me-2"></i>
+        Login to Your Account
+      </h2>
+
+      <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
+        <!-- Email Field -->
+        <div class="mb-3">
+          <label for="loginEmail" class="form-label">Email</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+            <input
+              type="email"
+              class="form-control"
+              id="loginEmail"
+              formControlName="email"
+              placeholder="Enter your email"
+            >
+          </div>
+          <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="text-danger mt-1">
+            <small *ngIf="loginForm.get('email')?.errors?.['required']">Email is required</small>
+            <small *ngIf="loginForm.get('email')?.errors?.['email']">Please enter a valid email</small>
+          </div>
+        </div>
+
+        <!-- Password Field -->
+        <div class="mb-3">
+          <label for="loginPassword" class="form-label">Password</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-lock"></i></span>
+            <input
+              [type]="showPassword ? 'text' : 'password'"
+              class="form-control"
+              id="loginPassword"
+              formControlName="password"
+              placeholder="Enter your password"
+            >
+            <button
+              class="input-group-text btn-toggle-password"
+              type="button"
+              (click)="togglePasswordVisibility()"
+            >
+              <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
+            </button>
+          </div>
+          <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="text-danger mt-1">
+            <small *ngIf="loginForm.get('password')?.errors?.['required']">Password is required</small>
+            <small *ngIf="loginForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters</small>
+          </div>
+        </div>
+
+        <!-- Login Button -->
+        <div class="d-grid gap-2 mb-3">
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="loginForm.invalid"
+          >
+            <i class="bi bi-box-arrow-in-right me-2"></i>Login
+          </button>
+        </div>
+
+        <!-- Toggle to Signup -->
+        <div class="text-center">
+          <p>Don't have an account?
+            <a href="javascript:void(0)" (click)="toggleMode()" class="toggle-link">Sign up</a>
+          </p>
+        </div>
+      </form>
+    </div>
+
+    <!-- Signup Form -->
+    <div *ngIf="!isLoginMode" class="auth-form">
+      <h2 class="text-center mb-4">
+        <i class="bi bi-ticket-perforated-fill me-2"></i>
+        Create Your Account
+      </h2>
+
+      <form [formGroup]="signupForm" (ngSubmit)="onSignupSubmit()">
+        <!-- Email Field -->
+        <div class="mb-3">
+          <label for="signupEmail" class="form-label">Email</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+            <input
+              type="email"
+              class="form-control"
+              id="signupEmail"
+              formControlName="email"
+              placeholder="Enter your email"
+            >
+          </div>
+          <div *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')?.touched" class="text-danger mt-1">
+            <small *ngIf="signupForm.get('email')?.errors?.['required']">Email is required</small>
+            <small *ngIf="signupForm.get('email')?.errors?.['email']">Please enter a valid email</small>
+          </div>
+        </div>
+
+        <!-- Password Field -->
+        <div class="mb-3">
+          <label for="signupPassword" class="form-label">Password</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-lock"></i></span>
+            <input
+              [type]="showPassword ? 'text' : 'password'"
+              class="form-control"
+              id="signupPassword"
+              formControlName="password"
+              placeholder="Create a password"
+            >
+            <button
+              class="input-group-text btn-toggle-password"
+              type="button"
+              (click)="togglePasswordVisibility()"
+            >
+              <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
+            </button>
+          </div>
+          <div *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched" class="text-danger mt-1">
+            <small *ngIf="signupForm.get('password')?.errors?.['required']">Password is required</small>
+            <small *ngIf="signupForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters</small>
+          </div>
+        </div>
+
+        <!-- Confirm Password Field -->
+        <div class="mb-3">
+          <label for="confirmPassword" class="form-label">Confirm Password</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
+            <input
+              [type]="showConfirmPassword ? 'text' : 'password'"
+              class="form-control"
+              id="confirmPassword"
+              formControlName="confirmPassword"
+              placeholder="Confirm your password"
+            >
+            <button
+              class="input-group-text btn-toggle-password"
+              type="button"
+              (click)="toggleConfirmPasswordVisibility()"
+            >
+              <i class="bi" [ngClass]="showConfirmPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
+            </button>
+          </div>
+          <div *ngIf="signupForm.get('confirmPassword')?.invalid && signupForm.get('confirmPassword')?.touched" class="text-danger mt-1">
+            <small *ngIf="signupForm.get('confirmPassword')?.errors?.['required']">Please confirm your password</small>
+            <small *ngIf="signupForm.get('confirmPassword')?.errors?.['passwordMismatch']">Passwords do not match</small>
+          </div>
+        </div>
+
+        <!-- Signup Button -->
+        <div class="d-grid gap-2 mb-3">
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="signupForm.invalid"
+          >
+            <i class="bi bi-person-plus me-2"></i>Sign Up
+          </button>
+        </div>
+
+        <!-- Toggle to Login -->
+        <div class="text-center">
+          <p>Already have an account?
+            <a href="javascript:void(0)" (click)="toggleMode()" class="toggle-link">Login</a>
+          </p>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

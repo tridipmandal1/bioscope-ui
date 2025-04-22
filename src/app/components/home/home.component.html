@@ -1,0 +1,8 @@
+<app-navbar (tab)="currentTab($event)"></app-navbar>
+<div class="main-container">
+<app-shows *ngIf="tabName === 'shows'"></app-shows>
+<app-screens *ngIf="tabName === 'screens'"></app-screens>
+<app-trending *ngIf="tabName === 'trending'"></app-trending>
+<app-dashboard *ngIf="tabName === 'dashboard'"></app-dashboard>
+<app-ticket-checking *ngIf="tabName === 'ticketChecking'"></app-ticket-checking>
+</div>

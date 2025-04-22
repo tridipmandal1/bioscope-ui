@@ -1,0 +1,144 @@
+<div class="container my-5 show-booking">
+  <!-- Show Details Card -->
+  <div class="card mb-4 shadow-sm show-details-card">
+    <div class="show-poster">
+      <img src="{{show.poster}}" alt="Show Poster" class="img-fluid">
+    </div>
+    <div class="card-body">
+      <div class="d-flex justify-content-between align-items-start mb-3">
+        <h2 class="card-title">{{show.showName}}</h2>
+        <span class="badge show-type">{{show.showType}}</span>
+      </div>
+
+      <div class="row mb-4">
+        <div class="col-md-6">
+          <div class="info-item">
+            <i class="bi bi-chair-fill"></i>
+            <span>Seating Arrangement: <strong>{{show.arrangementType}}</strong></span>
+          </div>
+          <div class="info-item">
+            <i class="bi bi-people-fill"></i>
+            <span>Capacity: <strong>{{show.capacity}}</strong></span>
+          </div>
+          <div class="info-item">
+            <i class="bi bi-ticket-perforated-fill"></i>
+            <span>Reserved: <strong>{{show.reserved}}</strong></span>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="info-item">
+            <i class="bi bi-geo-alt-fill"></i>
+            <span>Location: <strong>{{show.location}}</strong></span>
+          </div>
+          <div class="info-item">
+            <i class="bi bi-calendar-event"></i>
+            <span>Date: <strong>{{show.showDate}}</strong></span>
+          </div>
+          <div class="info-item">
+            <i class="bi bi-clock-fill"></i>
+            <span>Time: <strong>{{show.showTime}}</strong></span>
+          </div>
+          <div class="info-item">
+            <i class="bi bi-hourglass-split"></i>
+            <span>Duration: <strong>{{show.showDuration}}</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="show-description">
+        <h5>About the Show</h5>
+        <p>{{show.showDescription}}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Booking Options Card -->
+  <!-- Booking Options Card -->
+  <div class="card mb-4 shadow-sm booking-options-card">
+    <div class="card-header">
+      <h3>Select Tickets</h3>
+    </div>
+    <div class="card-body">
+      <div class="alert alert-info" *ngIf="hasSelectedTickets() && selectedCategory !== ''">
+        <i class="bi bi-info-circle-fill"></i> You can only select one ticket category at a time.
+      </div>
+
+      <div class="ticket-category" *ngFor="let category of ticketCategories">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <div>
+            <h5 class="mb-0">{{ category.name }}</h5>
+            <p class="text-muted mb-0">{{ category.description }}</p>
+          </div>
+          <div class="price">{{ category.price | currency }}</div>
+        </div>
+
+        <div class="ticket-counter">
+          <button
+            class="btn btn-outline-secondary"
+            [disabled]="selectedCategory !== '' && selectedCategory !== category.id || category.count === 0"
+            (click)="decrementTicket(category.id)">
+            <i class="bi bi-dash"></i>
+          </button>
+          <span class="count">{{ category.count }}</span>
+          <button
+            class="btn btn-outline-secondary"
+            [disabled]="selectedCategory !== '' && selectedCategory !== category.id || category.count === 5"
+            (click)="incrementTicket(category.id)">
+            <i class="bi bi-plus"></i>
+          </button>
+          <button
+            class="btn book-btn ms-3"
+            [disabled]="selectedCategory !== '' && selectedCategory !== category.id"
+            [ngClass]="{'btn-primary': category.count > 0, 'btn-outline-primary': category.count === 0}"
+            (click)="selectCategory(category.id)">
+            Book
+          </button>
+        </div>
+
+        <hr *ngIf="!isLastCategory(category.id)">
+      </div>
+    </div>
+  </div>
+
+  <!-- Order Summary Card -->
+  <div class="card shadow-sm order-summary-card" *ngIf="hasSelectedTickets()">
+    <div class="card-header">
+      <h3>Order Summary</h3>
+    </div>
+    <div class="card-body">
+      <div class="summary-item" *ngFor="let category of getSelectedCategories()">
+        <div class="d-flex justify-content-between">
+          <span>{{ category.name }} ({{ category.count }} tickets)</span>
+          <span>{{ category.count * category.price | currency: 'INR' }}</span>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="summary-item">
+        <div class="d-flex justify-content-between">
+          <span>Subtotal</span>
+          <span>{{ getSubtotal() | currency }}</span>
+        </div>
+      </div>
+
+      <div class="summary-item">
+        <div class="d-flex justify-content-between">
+          <span>Tax (8%)</span>
+          <span>{{ getTax() | currency }}</span>
+        </div>
+      </div>
+
+      <div class="summary-item total">
+        <div class="d-flex justify-content-between">
+          <span><strong>Total</strong></span>
+          <span><strong>{{ getTotal() | currency }}</strong></span>
+        </div>
+      </div>
+
+      <button class="btn btn-primary checkout-btn mt-3" (click)="checkout()">
+        <i class="bi bi-credit-card-fill me-2"></i> Proceed to Checkout
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,96 @@
+<div class="container py-4">
+  <div class="card movie-card shadow">
+    <!-- Movie Poster -->
+    <img [src]="movie.poster" *ngIf="isMovie" class="card-img-top movie-poster" alt="{{ movie.title }} Poster">
+    <img [src]="show.poster" *ngIf="!isMovie" class="card-img-top movie-poster" alt="{{ show.showName }} Poster">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-8">
+          <!-- Title -->
+          <h1 class="card-title movie-title" *ngIf="isMovie">{{ movie.title }}</h1>
+          <h1 class="card-title movie-title" *ngIf="!isMovie">{{ show.showName }}</h1>
+
+          <!-- Genres -->
+          <div class="mb-3" *ngIf="isMovie">
+            <span *ngFor="let genre of movie.genres" class="badge genre-badge me-2">
+              {{ genre }}
+            </span>
+          </div>
+
+          <div class="mb-3" *ngIf="!isMovie">
+            <span class="badge genre-badge me-2">
+             {{show.showType}}
+            </span>
+          </div>
+          <!-- Movie Info -->
+          <div class="movie-info mb-3">
+            <!-- Rating -->
+            <div class="rating mb-2" *ngIf="isMovie">
+              <div class="stars">
+                <i *ngFor="let star of generateStars(Number(movie.rating))"
+                   class="bi"
+                   [ngClass]="{
+                     'bi-star-fill': star === 1,
+                     'bi-star-half': star === 0.5,
+                     'bi-star': star === 0
+                   }"></i>
+              </div>
+              <span class="rating-value">{{ movie.rating }}/10</span>
+            </div>
+
+            <!-- Duration -->
+            <div class="duration mb-2">
+              <i class="bi bi-clock me-2"></i>
+              <span *ngIf="isMovie">{{ parseISODuration(movie.duration) }}</span>
+              <span *ngIf="!isMovie">{{ parseISODuration(show.showDuration) }}</span>
+            </div>
+
+            <!-- Release Date -->
+            <div class="release-date mb-2">
+              <i class="bi bi-calendar-event me-2"></i>
+              <span *ngIf="isMovie">{{ movie.releaseDate }}</span>
+              <span *ngIf="!isMovie">{{ show.showDate }}</span>
+            </div>
+          </div>
+
+          <!-- Rate Button -->
+          <button *ngIf="isMovie" class="btn rate-btn mb-4" (click)="rateMovie()">
+            <i class="bi bi-star me-2"></i>Rate this movie
+          </button>
+
+          <!-- Description -->
+          <h4>Synopsis</h4>
+          <p class="movie-description mb-4" *ngIf="isMovie">{{ movie.description }}</p>
+          <p class="movie-description mb-4" *ngIf="!isMovie">{{ show.showDescription }}</p>
+
+          <!-- Book Now Button -->
+          <button class="btn book-btn btn-lg" *ngIf="!isMovie" (click)="bookNow(show.showId)">
+            <i class="bi bi-ticket-perforated me-2"></i>Book Now
+          </button>
+          <button class="btn book-btn btn-lg" *ngIf="isMovie" (click)="bookNow(movie.movieId)">
+            <i class="bi bi-ticket-perforated me-2"></i>Book Now
+          </button>
+        </div>
+
+        <!-- Cast Section -->
+        <div class="col-md-4" *ngIf="isMovie">
+          <div class="cast-section">
+            <h4 class="mb-3">Cast</h4>
+            <div class="cast-list">
+              <div *ngFor="let star of stars" class="cast-item mb-3">
+                <div class="d-flex align-items-center">
+                  <img src="exampleimg.com" class="cast-image me-3" alt="{{ star }}">
+                  <div>
+                    <div class="cast-name">{{ star }}</div>
+<!--                    <div class="cast-character">{{ actor.character }}</div>-->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

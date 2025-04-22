@@ -1,0 +1,74 @@
+<div class="main-con">
+  <div class="container mt-4">
+    <h4>Create New Screen</h4>
+    <form (ngSubmit)="handleSubmit()">
+      <div class="mb-3">
+        <label class="form-label">Screen Name</label>
+        <input type="text" class="form-control" [(ngModel)]="screen.screenName" name="screenName">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Arrangement Type</label>
+        <select class="form-select" [(ngModel)]="screen.arrangementType" name="arrangementType">
+          <option selected disabled>Select arrangement Type</option>
+          <option *ngFor="let type of arrangementTypes">{{ type }}</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Capacity</label>
+        <input type="number" class="form-control" [(ngModel)]="screen.capacity" name="capacity">
+      </div>
+
+      <hr>
+
+      <div class="mb-3">
+        <h5>Row Data</h5>
+        <div *ngFor="let row of screen.rowData; let i = index" class="border p-3 mb-3 rounded bg-light">
+          <div class="row g-3 align-items-end">
+            <div class="col-md-2">
+              <label class="form-label">Row Index</label>
+              <input type="text" class="form-control" [(ngModel)]="row.rowIndex" [name]="'rowIndex' + i">
+            </div>
+
+            <div class="col-md-2">
+              <label class="form-label">Seats in Row</label>
+              <input type="number" class="form-control" [(ngModel)]="row.seatsInRow" [name]="'seatsInRow' + i">
+            </div>
+
+            <div class="col-md-2">
+              <label class="form-label">Price in Row</label>
+              <input type="number" class="form-control" [(ngModel)]="row.priceInRow" [name]="'priceInRow' + i">
+            </div>
+
+            <div class="col-md-3">
+              <label class="form-label d-flex align-items-center">
+                Passage Followed
+                <i class="bi bi-info-circle ms-2 text-primary"
+                   matTooltip="Comma separated numbers like: 3,6 for passage after seat 3 and 6"></i>
+              </label>
+              <input type="text" class="form-control" [(ngModel)]="row.passageFollowed" [name]="'passageFollowed' + i">
+            </div>
+
+            <div class="col-md-2">
+              <label class="form-label">Category</label>
+              <select class="form-select" [(ngModel)]="row.category" [name]="'category' + i">
+                <option *ngFor="let cat of categories">{{ cat }}</option>
+              </select>
+            </div>
+
+            <div class="col-auto">
+              <button class="btn btn-danger" type="button" (click)="removeRow(i)">×</button>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn btn-outline-primary" type="button" (click)="addRow()">Add Row</button>
+      </div>
+
+      <button type="submit" class="btn btn-success mt-3">Create Screen</button>
+    </form>
+  </div>
+
+
+</div>
