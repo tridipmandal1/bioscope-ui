@@ -4,6 +4,5 @@ export class SeatModel {
 
   id: SeatId = new SeatId();
   seatNumber: number = 0;
-  bookingStatus: string = '';
   price: number = 0;
 }

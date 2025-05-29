@@ -1,8 +1,13 @@
+<app-user-nav></app-user-nav>
 <div class="seat-matrix-container">
+  <div *ngIf="isLoading" class="loading-overlay">
+    <mat-spinner></mat-spinner>
+    <p>Processing payment...</p>
+  </div>
   <!-- Header with movie details -->
   <div class="header text-center mb-4">
-    <h2 class="movie-title">{{ movieName }}</h2>
-    <p class="venue-details">{{ hallName }} | {{ showTime }}</p>
+    <h2 class="movie-title">{{ show.movie.title }}</h2>
+    <p class="venue-details">{{ show.hostName }} | {{ show.showName }}</p>
   </div>
 
   <!-- Screen indication -->
@@ -50,9 +55,9 @@
           <div
             class="seat text-center p-1"
             [ngClass]="{
-              'seat-available': !seat.isBooked && !isSeatSelected(seat),
+              'seat-available': isBooked(seat) && !isSeatSelected(seat),
               'seat-selected': isSeatSelected(seat),
-              'seat-booked': seat.isBooked
+              'seat-booked': isBooked(seat)
             }"
             (click)="toggleSeatSelection(seat)"
           >
@@ -75,10 +80,12 @@
         <div class="col-md-6">
           <h5>Selected Seats:
             <span class="badge bg-primary ms-2" *ngFor="let seat of selectedSeats">
-              {{ seat.id.seatNumber }}
+              {{ seat.seatId.rowIndex }} {{ seat.seatId.seatNumber }}
             </span>
           </h5>
-          <p class="mb-0">Total Amount: <strong>₹{{ totalAmount }}</strong></p>
+          <p class="mb-0">Seat Cost: {{ totalAmount | currency: 'INR'}}</p>
+          <p class="mb-0">Tax: {{ getTax() | currency: 'INR'}}</p>
+          <p class="mb-0">Amount to pay: <strong>{{ getTotal() | currency: 'INR'}}</strong></p>
         </div>
         <div class="col-md-4 text-end">
           <button class="btn btn-confirm" (click)="confirmSelection()">

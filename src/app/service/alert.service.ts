@@ -21,6 +21,13 @@ export class AlertService {
     dialogConfig.data = data;
     dialogConfig.autoFocus = true;
     dialogConfig.panelClass = 'my-no-padding-dialog';
-    this.alertDialog.open(AlertComponent, dialogConfig);
+    const dialogRef = this.alertDialog.open(AlertComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(() => {
+      console.log('Alert dialog closed');
+      this.isAlertOpened = false;
+    });
+
+    return dialogRef;
   }
 }

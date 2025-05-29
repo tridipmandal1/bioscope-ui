@@ -29,28 +29,52 @@ export class HostService {
   }
 
   getCurrentLoggedUser(): User {
-    this.getUserProfile();
+    this.getHostProfile().subscribe({
+      next: (response) => {
+        this.currentLoggedUser.email = response.body.email;
+        this.currentLoggedUser.name = response.body.name;
+        this.currentLoggedUser.location = response.body.location;
+        this.currentLoggedUser.userId = response.body.userId;
+      },
+      error: (error) => {
+        console.error('Error fetching user profile:', error);
+      }
+    })
     return this.currentLoggedUser;
   }
-  getUserProfile(): Observable<any> {
+  getHostProfile(): Observable<any> {
     const headers = new HttpHeaders({
       Accept: 'application/json',
       'Content-Type': 'application/json',
     });
 
     const OPTIONS = { headers: headers, observe: 'response' as 'body' };
-    return this.httpClient.get(`${this.REST_API_URL}/v01/host`, OPTIONS).pipe(
-      map((response: any) => {
-        this.currentLoggedUser.email = response.body.email;
-        this.currentLoggedUser.name = response.body.name;
-        this.currentLoggedUser.location = response.body.location;
-        this.currentLoggedUser.userId = response.body.userId;
-        return response;
-      })
-    );
+    const role = localStorage.getItem('ROLE');
+    if(role === 'HOST') {
+      return this.httpClient.get(`${this.REST_API_URL}/v01/host`, OPTIONS).pipe(
+        map((response: any) => {
+          this.currentLoggedUser.email = response.body.email;
+          this.currentLoggedUser.name = response.body.name;
+          this.currentLoggedUser.location = response.body.location;
+          this.currentLoggedUser.userId = response.body.userId;
+          return response;
+        })
+      );
+    } else {
+      return this.httpClient.get(`${this.REST_API_URL}/v01/user`, OPTIONS).pipe(
+        map((response: any) => {
+          this.currentLoggedUser.email = response.body.email;
+          this.currentLoggedUser.name = response.body.name;
+          this.currentLoggedUser.location = response.body.location;
+          this.currentLoggedUser.userId = response.body.userId;
+          return response;
+        })
+      );
+    }
+
   }
   isProfileCreated(): boolean {
-    this.getUserProfile().subscribe();
+    this.getHostProfile().subscribe();
     return !!(this.currentLoggedUser.name && this.currentLoggedUser.location);
   }
   login(host: AuthRequest): Observable<any> {
@@ -98,7 +122,6 @@ export class HostService {
   }
   logout(): void {
     this.clearToken();
-    this.router.navigate(['/login']).then(r => console.log('Logout'));
   }
 
   changePassword(oldPassword: string, newPassword: string): Observable<any> {

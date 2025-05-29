@@ -5,6 +5,7 @@ import {Movie} from "../../../model/Movie";
 import {ShowModel} from "../../../model/ShowModel";
 import {UserService} from "../../../service/user.service";
 import {Router} from "@angular/router";
+import {AlertService} from "../../../service/alert.service";
 
 
 interface Event {
@@ -61,12 +62,11 @@ export class UserLandingComponent implements OnInit{
   trendingShows: ShowModel[] = [];
 
   constructor(private userService: UserService,
-              private router: Router) { }
+              private router: Router,
+              private alertService: AlertService) { }
 
   ngOnInit(): void {
     this.initCarousel();
-
-
     this.userService.getTrendingMovies().subscribe((response: any) => {
       this.recommendedMovies = response.body;
     });
@@ -94,16 +94,14 @@ export class UserLandingComponent implements OnInit{
   }
 
   openShowPage(id: string) {
+    console.log(id);
     const urlTree = this.router.createUrlTree(['/shows', encodeURIComponent(id)]);
     this.router.navigateByUrl(urlTree).then(() => {});
   }
 
   openMoviePage(id: string) {
-    console.log(id);
     const urlTree = this.router
-      .createUrlTree(['/movies', encodeURIComponent(id)], {
-        queryParams: { id: encodeURIComponent(id) }
-      });
+      .createUrlTree(['/movies', encodeURIComponent(id)]);
     this.router.navigateByUrl(urlTree).then(() => {});
   }
 }

@@ -2,7 +2,7 @@ import {ShowModel} from "./ShowModel";
 import {Movie} from "./Movie";
 
 export class User {
-  userId: string = '';
+  userId: string = 'Guest';
   email: string = '';
   role: string = '';
   name: string = '';

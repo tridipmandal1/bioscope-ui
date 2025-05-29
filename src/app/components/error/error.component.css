@@ -1,0 +1,159 @@
+:host {
+  --primary-blue: #118ab2;
+  --primary-yellow: #ffd166;
+  --primary-pink: #ef476f;
+  --light-gray: #f8f9fa;
+  --dark-gray: #343a40;
+}
+
+.error-container {
+  min-height: 100vh;
+  background-color: var(--light-gray);
+}
+
+.error-card {
+  max-width: 550px;
+  width: 100%;
+  border: none;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: white;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.error-icon-container {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
+  background-color: var(--primary-pink);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  i {
+    font-size: 40px;
+    color: white;
+  }
+}
+
+.error-code {
+  font-size: 4rem;
+  font-weight: 700;
+  color: var(--dark-gray);
+  margin-bottom: 0.5rem;
+}
+
+.error-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--dark-gray);
+}
+
+.error-message {
+  color: #6c757d;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.home-button {
+  background-color: var(--primary-blue);
+  color: white;
+  padding: 12px 30px;
+  border-radius: 30px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: darken(#118ab2, 10%);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(17, 138, 178, 0.3);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.ticket-visual {
+  .ticket {
+    background: linear-gradient(145deg, var(--primary-blue), var(--primary-yellow));
+    padding: 15px;
+    border-radius: 8px;
+    color: white;
+    position: relative;
+    max-width: 300px;
+    margin: 0 auto;
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 20px;
+      right: 20px;
+      height: 1px;
+      border-top: 2px dashed rgba(255, 255, 255, 0.3);
+    }
+
+    &:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 20px;
+      right: 20px;
+      height: 1px;
+      border-bottom: 2px dashed rgba(255, 255, 255, 0.3);
+    }
+
+    .ticket-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+
+      i {
+        font-size: 1.5rem;
+        margin-right: 10px;
+      }
+
+      span {
+        font-weight: 600;
+        font-size: 1.2rem;
+      }
+    }
+
+    .ticket-body {
+      .ticket-info {
+        display: flex;
+        align-items: center;
+
+        i {
+          margin-right: 8px;
+        }
+      }
+    }
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+  .error-card {
+    margin: 0 15px;
+  }
+
+  .error-code {
+    font-size: 3rem;
+  }
+
+  .error-title {
+    font-size: 1.5rem;
+  }
+
+  .error-message {
+    font-size: 1rem;
+  }
+}

@@ -21,7 +21,7 @@ export class NavbarComponent implements OnInit{
 
   username = 'Guest';
   ngOnInit(): void {
-    this.hostService.getUserProfile().subscribe({
+    this.hostService.getHostProfile().subscribe({
       next: (response) => {
         this.username = response.body.name;
       },
@@ -48,6 +48,6 @@ export class NavbarComponent implements OnInit{
 
   logout() {
     this.hostService.logout();
-    this.router.navigate(['/auth']).then(r => {});
+    this.router.navigate(['/host']).then(r => {});
   }
 }

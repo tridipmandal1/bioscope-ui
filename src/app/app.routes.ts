@@ -10,6 +10,10 @@ import {UserLandingComponent} from "./components/landing/user-landing/user-landi
 import {UserAuthComponent} from "./components/modal/user-auth/user-auth.component";
 import {OpenBookingComponent} from "./components/user/open-booking/open-booking.component";
 import {MovieShowsComponent} from "./components/user/movie-shows/movie-shows.component";
+import {ShowSeatingComponent} from "./components/user/show-seating/show-seating.component";
+import {ProfileComponent} from "./components/user/profile/profile.component";
+import {SearchResultsComponent} from "./components/user/search-results/search-results.component";
+import {ErrorComponent} from "./components/error/error.component";
 
 export const routes: Routes = [
 
@@ -24,5 +28,9 @@ export const routes: Routes = [
   {path: 'shows/:id', component: ShowDetailsComponent},
   {path: 'bookings/open/:id', component: OpenBookingComponent},
   {path: 'movies/:id', component: ShowDetailsComponent},
-  {path: 'movie/shows/:id',  component: MovieShowsComponent}
+  {path: 'movie/shows/:id',  component: MovieShowsComponent},
+  {path: 'movie/shows/seating/:id', component: ShowSeatingComponent},
+  {path: 'user/profile', component: ProfileComponent, canActivate: [authGuard]},
+  {path: 'search/:query', component: SearchResultsComponent},
+  {path: 'error', component: ErrorComponent}
 ];

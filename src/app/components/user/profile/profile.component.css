@@ -1,0 +1,147 @@
+:host {
+  --primary-blue: #118ab2;
+  --primary-yellow: #ffd166;
+  --primary-pink: #ef476f;
+  --light-gray: #f8f9fa;
+  --dark-gray: #343a40;
+}
+
+/* Profile Card Styles */
+.profile-card {
+  border-radius: 15px;
+  border: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-color: white;
+}
+
+.profile-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+}
+
+.profile-icon-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.profile-icon {
+  font-size: 5rem;
+  color: var(--primary-blue);
+}
+
+.interest-badge {
+  background-color: var(--primary-yellow);
+  color: var(--dark-gray);
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.interest-badge:hover {
+  background-color: var(--primary-pink);
+  color: white;
+  transform: scale(1.05);
+}
+
+/* Tickets Section Styles */
+.tickets-section {
+  padding: 1rem;
+  border-radius: 15px;
+  background-color: var(--light-gray);
+}
+
+.section-title {
+  color: var(--primary-blue);
+  font-weight: 600;
+  border-bottom: 2px solid var(--primary-blue);
+  padding-bottom: 0.5rem;
+}
+
+.ticket-card {
+  border-radius: 12px;
+  border: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+  position: relative;
+}
+
+.ticket-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1) !important;
+}
+
+.ticket-card .card-title {
+  color: var(--primary-blue);
+  font-weight: 600;
+  margin-right: 80px; /* Make space for QR code */
+}
+
+.qr-code {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 70px;
+  height: 70px;
+  border: 1px solid #ddd;
+  padding: 5px;
+  background-color: white;
+  border-radius: 8px;
+}
+
+.cancel-btn {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  transition: all 0.3s ease;
+}
+
+.cancel-btn:hover {
+  background-color: #dc3545;
+  transform: scale(1.05);
+}
+
+.seat-badge {
+  background-color: var(--primary-blue);
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.seat-badge:hover {
+  background-color: var(--primary-pink);
+  transform: scale(1.05);
+}
+
+/* Empty tickets state */
+.empty-tickets {
+  color: var(--dark-gray);
+  background-color: white;
+  border-radius: 10px;
+}
+
+.empty-icon {
+  font-size: 3rem;
+  color: var(--primary-blue);
+  margin-bottom: 1rem;
+  display: block;
+}
+.download-btn {
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  background-color: var(--primary-blue);
+  transition: all 0.3s ease;
+}
+
+.download-btn:hover {
+  background-color: #0d6efd;
+  transform: scale(1.05);
+}
+/* Animation for new tickets */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.ticket-card {
+  animation: fadeIn 0.5s ease-out;
+}

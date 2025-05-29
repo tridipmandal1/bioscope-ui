@@ -1,4 +1,5 @@
-<div class="container mt-4">
+<app-user-nav></app-user-nav>
+<div class="container" style="margin-top: 100px">
   <!-- Movie Title -->
   <h1 class="movie-title text-center mb-3">{{ movie.title }}</h1>
 
@@ -13,19 +14,19 @@
   <div class="date-nav mb-4">
     <div class="nav-container">
       <button
-        *ngFor="let date of availableDates"
+        *ngFor="let date of sortedDates"
         class="btn date-btn"
-        [class.active]="selectedDate === date.value"
-        (click)="selectDate(date.value)">
-        <div class="date-day">{{ date.day }}</div>
-        <div class="date-value">{{ date.date }}</div>
+        [class.active]="selectedDate === date"
+        (click)="selectDate(date)">
+        <div class="date-day">{{ getWeekdayFromDate(date) }}</div>
+        <div class="date-value">{{ date }}</div>
       </button>
     </div>
   </div>
 
   <!-- Cinema Halls and Show Timings -->
   <div class="halls-container">
-    <div *ngFor="let hall of getHallsForSelectedDate()" class="hall-card mb-4">
+    <div *ngFor="let hall of filteredHosts" class="hall-card mb-4">
       <div class="hall-header">
         <h3 class="hall-name">{{ hall.name }}</h3>
         <p class="hall-location">
@@ -37,14 +38,14 @@
           *ngFor="let show of hall.shows"
           class="btn show-btn me-2 mb-2"
           (click)="selectShow(hall, show)">
-          <i class="bi bi-clock me-1"></i>{{ show.time }}
+          <i class="bi bi-clock me-1"></i>{{ show.showTime }}
         </button>
       </div>
     </div>
   </div>
 
   <!-- No Shows Message -->
-  <div *ngIf="getHallsForSelectedDate().length === 0" class="no-shows text-center p-4">
+  <div *ngIf="filteredHosts.length === 0" class="no-shows text-center p-4">
     <i class="bi bi-exclamation-circle fs-1 mb-3"></i>
     <p>No shows available for the selected date.</p>
   </div>

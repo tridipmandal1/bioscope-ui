@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {Movie} from "../../../model/Movie";
 import {UserService} from "../../../service/user.service";
 import {ShowModel} from "../../../model/ShowModel";
+import {UserNavComponent} from "../user-nav/user-nav.component";
 
 @Component({
   selector: 'app-show-details',
@@ -11,7 +12,8 @@ import {ShowModel} from "../../../model/ShowModel";
   imports: [
     NgClass,
     NgForOf,
-    NgIf
+    NgIf,
+    UserNavComponent
   ],
   templateUrl: './show-details.component.html',
   styleUrl: './show-details.component.css'
@@ -74,7 +76,7 @@ export class ShowDetailsComponent implements OnInit{
       this.router.navigateByUrl(urlTree).then(() => {});
     }
     if(this.router.url.includes('movies')){
-      const urlTree = this.router.createUrlTree(['/movie/open', encodeURIComponent(id)]);
+      const urlTree = this.router.createUrlTree(['/movie/shows', encodeURIComponent(id)]);
       this.router.navigateByUrl(urlTree).then(() => {});
     }
   }

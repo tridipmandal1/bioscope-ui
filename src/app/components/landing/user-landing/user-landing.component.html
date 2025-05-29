@@ -15,12 +15,12 @@
             <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
           </div>
           <div class="carousel-inner">
-            <div class="carousel-item active" *ngFor="let feature of featuredEvents; let i = index" [class.active]="i === 0">
-              <img [src]="feature.image" class="d-block w-100" [alt]="feature.title">
+            <div class="carousel-item active" *ngFor="let feature of trendingShows; let i = index" [class.active]="i === 0" (click)="openShowPage(feature.showId)">
+              <img [src]="feature.poster" class="d-block w-100" [alt]="feature.showName">
               <div class="carousel-caption">
-                <h2>{{ feature.title }}</h2>
-                <p>{{ feature.description }}</p>
-                <button class="btn book-now-btn">Book Now</button>
+                <h2>{{ feature.showName }}</h2>
+                <p>{{ feature.showDescription }}</p>
+<!--                <button class="btn book-now-btn z-3" (click)="openShowPage(feature.showId)">Book Now</button>-->
               </div>
             </div>
           </div>
@@ -104,6 +104,9 @@
   <!-- Footer -->
   <footer class="site-footer">
     <div class="container">
+      <div class="text-center mb-4">
+        <a [href]="'/host'" class="text-decoration-none fs-5 text-white">Looking to host your own event, don't hesitate</a>
+      </div>
       <div class="row">
         <div class="col-md-3">
           <h5>Bioscope</h5>

@@ -7,6 +7,7 @@ import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule} from "@angular
 import {AuthRequest} from "../../../model/AuthRequest";
 import {ToastNotificationComponent} from "../../../utils/toast-notification/toast-notification.component";
 import {Router} from "@angular/router";
+import {response} from "express";
 
 
 @Component({
@@ -38,8 +39,17 @@ export class HostLandingComponent implements OnInit {
     ) {}
 
   ngOnInit() {
+    console.log(this.hostService.isAuthenticated());
     if(this.hostService.isAuthenticated()){
-      this.router.navigate(['/']).then(r => {});
+      this.hostService.getHostProfile().subscribe({
+        next: response => {
+          if(response.body.role === 'HOST'){
+            this.router.navigate(['/host/home']).then(r => {});
+        }},
+        error: error => {
+          console.error(error);
+        }
+      });
     }
     this.isSignup = true;
 
@@ -83,20 +93,23 @@ export class HostLandingComponent implements OnInit {
   onLogin() {
     this.hostHere.email = this.loginFormGroup.get('loginEmail')?.value;
     this.hostHere.password = this.loginFormGroup.get('loginPassword')?.value;
+    this.hostHere.role = 'HOST';
     console.log(this.hostHere);
+    localStorage.setItem('ROLE', 'HOST');
     this.hostService.login(this.hostHere).subscribe({
       next: (response) => {
         console.log(response);
-        this.hostService.getUserProfile().subscribe({
+        this.hostService.getHostProfile().subscribe({
           next: op => {
             if(op.body.name === null || op.body.name === ''){
               this.isCreatingProfile = true;
               this.openCreateProfileDialog();
             }else{
-              this.router.navigate(['/']).then(r => {});
+              this.router.navigate(['/host/home']).then(r => {});
             }
           },
           error: error => {
+            localStorage.removeItem('ROLE');
             console.error(error);
           }
         });

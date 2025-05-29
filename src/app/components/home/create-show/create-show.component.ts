@@ -81,7 +81,7 @@ export class CreateShowComponent implements OnInit{
   }
 
   addTicketCategory(): void {
-    this.ticketCategories.push({id: '', category: '', price: 0 });
+    this.ticketCategories.push({id: '', category: '', reserved: 0, capacity:0, price: 0 });
   }
 
   removeTicketCategory(index: number): void {
@@ -126,7 +126,7 @@ export class CreateShowComponent implements OnInit{
         this.managementService.updateShow(this.show.showId, this.show).subscribe({
           next: response => {
             this.alertService.openAlert({isError: false, message: 'Show updated successfully'});
-            this.router.navigate(['']).then(() => {});
+            this.router.navigate(['/host/home']).then(() => {});
           },
           error: err => {
             this.alertService.openAlert({isError: true, message: err.message});
@@ -136,7 +136,7 @@ export class CreateShowComponent implements OnInit{
         this.managementService.createShow(this.show.screenId, this.show).subscribe({
           next: response => {
             this.alertService.openAlert({isError: false, message: 'Show created successfully'});
-            this.router.navigate(['']).then(() => {});
+            this.router.navigate(['/host/home']).then(() => {});
           },
           error: err => {
             this.alertService.openAlert({isError: true, message: err.message});
@@ -148,7 +148,7 @@ export class CreateShowComponent implements OnInit{
         this.managementService.updateOpenShow(this.show.showId, this.show).subscribe({
           next: response => {
             this.alertService.openAlert({isError: false, message: 'Show updated successfully'});
-            this.router.navigate(['']).then(() => {});
+            this.router.navigate(['/host/home']).then(() => {});
           },
           error: err => {
             this.alertService.openAlert({isError: true, message: err.message});
@@ -158,7 +158,7 @@ export class CreateShowComponent implements OnInit{
         this.managementService.createOpenShow(this.show).subscribe({
           next: response => {
             this.alertService.openAlert({isError: false, message: 'Show created successfully'});
-            this.router.navigate(['']).then(() => {});
+            this.router.navigate(['/host/home']).then(() => {});
           },
           error: err => {
             this.alertService.openAlert({isError: true, message: err.message});
@@ -170,7 +170,7 @@ export class CreateShowComponent implements OnInit{
 
   goBack() {
       if(confirm('Are you sure you want to go back? Unsaved changes will be lost.')) {
-        this.router.navigate(['']).then(() =>{});
+        this.router.navigate(['/host/home']).then(() =>{});
       }
   }
 

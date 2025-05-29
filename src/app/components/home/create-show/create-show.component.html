@@ -1,4 +1,4 @@
-<div class="main-con">
+0<div class="main-con">
   <div class="container mt-4 w-50">
     <h3 *ngIf="!this.show.showId">Create New Show</h3>
     <h3 *ngIf="this.show.showId">Edit Show</h3>
@@ -88,6 +88,9 @@
           </div>
           <div class="col">
             <input  class="form-control" [(ngModel)]="pass.price" [name]="'price' + i" placeholder="Price">
+          </div>
+          <div class="col">
+            <input  class="form-control" [(ngModel)]="pass.capacity" [name]="'price' + i" placeholder="Capacity">
           </div>
           <div class="col-auto">
             <button class="btn btn-danger" type="button" (click)="removeTicketCategory(i)">×</button>

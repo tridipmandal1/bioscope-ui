@@ -6,6 +6,7 @@ export class ShowModel{
   showId: string = ''; // hidden field
   showName: string = '';
   movie: Movie = new Movie(); // select from dropdown
+  hostName: string = '';
   showType: string = ''; // select from dropdown
   poster: string = ''; // image upload
   arrangementType: string = ''; // dropdown STANDING or SITTING

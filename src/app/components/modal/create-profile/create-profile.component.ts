@@ -39,7 +39,7 @@ export class CreateProfileComponent {
       next: (response) => {
         console.log('Profile updated successfully:', response);
         this.dialogRef.close();
-        this.router.navigate(['/']).then(r => {
+        this.router.navigate(['/host/home']).then(r => {
           window.location.reload();
         });
       },

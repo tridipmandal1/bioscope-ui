@@ -53,7 +53,7 @@ export class CreateScreenComponent {
     this.managementService.createScreen(this.screen).subscribe({
       next: (response) => {
           this.alertService.openAlert({isError: false, message: 'Screen created successfully!'});
-          this.router.navigate(['']).then(
+          this.router.navigate(['/host/home']).then(
             () => {
               window.location.reload();
             }

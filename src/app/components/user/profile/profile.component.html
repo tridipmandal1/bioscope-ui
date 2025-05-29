@@ -1,0 +1,87 @@
+<app-user-nav></app-user-nav>
+<div class="container mt-xxl-5">
+  <div *ngIf="isLoading" class="loading-overlay">
+    <mat-spinner></mat-spinner>
+    <p>Please Wait...</p>
+  </div>
+  <!-- Main Profile Card -->
+  <div class="card profile-card mb-4 shadow">
+    <div class="card-body text-center">
+      <div class="profile-icon-container mb-3">
+        <i class="bi bi-person-circle profile-icon"></i>
+      </div>
+      <h3 class="card-title">{{ user.name }}</h3>
+      <p class="card-text">
+        <i class="bi bi-envelope me-2"></i>{{ user.email }}
+      </p>
+      <p class="card-text">
+        <i class="bi bi-geo-alt me-2"></i>{{ user.location || localStorage.getItem('location') }}
+      </p>
+      <div class="interests-container">
+        <span class="me-2">Interests:</span>
+        <span *ngFor="let interest of user.interests" class="badge rounded-pill interest-badge me-2 mb-2">
+          {{ interest }}
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Booked Tickets Section -->
+  <div class="tickets-section">
+    <h4 class="section-title mb-3">
+      <i class="bi bi-ticket-perforated me-2"></i>Your Booked Tickets
+    </h4>
+
+    <div *ngIf="tickets.length === 0" class="text-center p-5 empty-tickets">
+      <i class="bi bi-calendar-x empty-icon"></i>
+      <p>No tickets booked yet</p>
+    </div>
+
+    <div *ngIf="tickets.length > 0" class="row">
+      <div *ngFor="let ticket of tickets" class="col-md-6 mb-4">
+        <div class="card ticket-card h-100 shadow-sm" #ticketCard>
+          <div class="card-body position-relative">
+            <!-- QR Code -->
+            <div class="qr-code">
+              <img [src]="ticket.qrCode" alt="QR Code" class="img-fluid" />
+            </div>
+
+            <h5 class="card-title text-truncate">{{ ticket.showName }}</h5>
+            <div class="ticket-details">
+              <p class="mb-2">
+                <i class="bi bi-calendar-event me-2"></i>{{ ticket.date.substring(0,10) }}
+              </p>
+              <p class="mb-2">
+                <i class="bi bi-clock me-2"></i>{{ ticket.startTime }}
+              </p>
+              <p class="mb-2" *ngIf="ticket.category">
+                <i class="bi bi-tag me-2"></i>{{ ticket.category }}
+              </p>
+              <p class="mb-2" *ngIf="ticket.allowedPersons">
+                <i class="bi bi-people me-2"></i>{{ ticket.allowedPersons }} person(s)
+              </p>
+
+              <div class="d-flex align-items-center" *ngIf="ticket.seats.length > 0">
+                <p class="mb-1 me-2"><strong>Seats:</strong></p>
+                <div class="seats-container">
+                  <span *ngFor="let seat of ticket.seats" class="badge seat-badge me-2 mb-2">
+                    {{ seat.seatId.rowIndex }}-{{ seat.seatId.seatNumber }}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+<!--            &lt;!&ndash; Download Button &ndash;&gt;-->
+<!--            <button class="btn btn-primary download-btn mt-3" (click)="downloadTicket(ticket, $event)">-->
+<!--              <i class="bi bi-download me-2"></i>Download-->
+<!--            </button>-->
+            <!-- Cancel Button -->
+            <button class="btn btn-danger cancel-btn" (click)="cancelTicket(ticket)">
+              <i class="bi bi-x-circle me-2"></i>Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

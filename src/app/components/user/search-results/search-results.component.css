@@ -1,0 +1,228 @@
+:host {
+  --primary-blue: #118ab2;
+  --primary-yellow: #ffd166;
+  --primary-pink: #ef476f;
+  --light-gray: #f8f9fa;
+  --dark-gray: #343a40;
+}
+
+.search-results-container {
+  padding: 1.5rem;
+}
+
+   .nav-tabs {
+     border-bottom: 2px solid var(--light-gray);
+
+     .nav-link {
+       color: var(--dark-gray);
+       border: none;
+       padding: 0.75rem 1.25rem;
+       transition: all 0.3s ease;
+       cursor: pointer;
+
+       &:hover {
+         color: var(--primary-blue);
+       }
+
+       &.active {
+         color: var(--primary-blue);
+         font-weight: 600;
+         border-bottom: 3px solid var(--primary-blue);
+       }
+
+       .badge {
+         margin-left: 5px;
+       }
+     }
+   }
+
+
+   .section-title {
+     margin-bottom: 1.5rem;
+     color: var(--dark-gray);
+     font-weight: 600;
+     position: relative;
+
+     &:after {
+       content: '';
+       position: absolute;
+       bottom: -10px;
+       left: 0;
+       width: 50px;
+       height: 3px;
+       background-color: var(--primary-blue);
+     }
+   }
+
+
+   .card {
+     border: none;
+     border-radius: 10px;
+     overflow: hidden;
+     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+     transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+     &:hover {
+       transform: translateY(-5px);
+       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+     }
+
+     .card-img-top {
+       height: 200px;
+       object-fit: cover;
+     }
+
+     .card-title {
+       font-weight: 600;
+       margin-bottom: 0.75rem;
+     }
+
+     .card-text {
+       color: #6c757d;
+       margin-bottom: 0.5rem;
+     }
+
+     .card-footer {
+       background-color: transparent;
+       border-top: 1px solid rgba(0, 0, 0, 0.05);
+       padding: 1rem;
+     }
+   }
+
+
+   .host-card {
+     .host-img {
+       width: 120px;
+       height: 120px;
+       object-fit: cover;
+       border: 4px solid white;
+       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+     }
+   }
+
+
+   .badge {
+     font-weight: 500;
+     padding: 0.5em 0.75em;
+     border-radius: 4px;
+   }
+
+.bg-primary-blue {
+  background-color: var(--primary-blue) !important;
+  color: white;
+}
+
+.bg-primary-yellow {
+  background-color: var(--primary-yellow) !important;
+}
+
+.bg-primary-pink {
+  background-color: var(--primary-pink) !important;
+  color: white;
+}
+
+
+   .btn-primary-pink {
+     background-color: var(--primary-pink);
+     border-color: var(--primary-pink);
+     color: white;
+
+     &:hover {
+       background-color: darken(#ef476f, 10%);
+       border-color: darken(#ef476f, 10%);
+     }
+   }
+
+.btn-outline-primary-blue {
+  color: var(--primary-blue);
+  border-color: var(--primary-blue);
+
+  &:hover {
+    background-color: var(--primary-blue);
+    color: white;
+  }
+}
+
+
+   .skeleton-card {
+     .skeleton-img {
+       height: 200px;
+       background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+       background-size: 200% 100%;
+       animation: shimmer 1.5s infinite;
+     }
+
+     .skeleton-img-circle {
+       width: 120px;
+       height: 120px;
+       border-radius: 50%;
+       background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+       background-size: 200% 100%;
+       animation: shimmer 1.5s infinite;
+     }
+
+     .skeleton-text {
+       height: 16px;
+       margin-bottom: 10px;
+       background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+       background-size: 200% 100%;
+       animation: shimmer 1.5s infinite;
+       border-radius: 4px;
+     }
+
+     .skeleton-badge {
+       display: inline-block;
+       width: 60px;
+       height: 24px;
+       margin-right: 8px;
+       background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+       background-size: 200% 100%;
+       animation: shimmer 1.5s infinite;
+       border-radius: 4px;
+     }
+   }
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+   .fade-in {
+     animation: fadeIn 0.5s ease-in;
+   }
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+   .no-results {
+     color: var(--dark-gray);
+
+     .bi-search {
+       opacity: 0.3;
+     }
+   }
+
+
+@media (max-width: 768px) {
+  .card-img-top {
+    height: 180px;
+  }
+
+  .host-card .host-img {
+    width: 100px;
+    height: 100px;
+  }
+}

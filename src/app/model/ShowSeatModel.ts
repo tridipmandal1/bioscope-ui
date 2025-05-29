@@ -1,7 +1,7 @@
 import {SeatId} from "./SeatId";
 
 export class ShowSeatModel {
-  sSId: string = '';
+  ssid: string = '';
   seatId: SeatId = new SeatId();
   seatStatus: string = '';
 }

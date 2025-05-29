@@ -1,14 +1,16 @@
-<nav class="navbar navbar-expand-lg fixed-top">
+<nav class="navbar navbar-expand-lg fixed-top mb-xxl-5">
   <div class="container">
-    <a class="navbar-brand" href="'/'">
+    <a class="navbar-brand"  (click)="goToHome()" style="cursor:pointer;">
       <i class="bi bi-camera-reels brand-name fs-4"></i>
       <span class="brand-name">&nbsp; &nbsp;Bioscope</span>
     </a>
 
     <div class="search-container mx-auto">
       <div class="input-group">
-        <input type="text" class="form-control search-input" placeholder="Search for movies, events, plays...">
-        <button class="btn search-btn" type="button">
+        <input type="text" class="form-control search-input" [(ngModel)]="searchQuery"
+               (keydown.enter)="search()"
+               placeholder="Search for movies, events, plays...">
+        <button class="btn search-btn" type="button" (click)="search()">
           <i class="bi bi-search"></i>
         </button>
       </div>
@@ -33,9 +35,23 @@
           </div>
         </ul>
       </div>
-      <button class="btn sign-in-btn" (click)="onSignIn()">
-        <i class="bi bi-person-fill me-1"></i> Sign In
-      </button>
+      <!-- Conditional rendering based on authentication state -->
+
+        <button *ngIf="!isLoggedIn" class="btn sign-in-btn" (click)="onSignIn()">
+          <i class="bi bi-person-fill me-1"></i> Sign In
+        </button>
+        <div class="nav-link" *ngIf="isLoggedIn" (click)="openMenu()">
+          <i class="bi bi-person-circle" style="font-size: 30px; color: var(--primary-blue)"></i>
+        </div>
+      <div class="card position-absolute  end-0 mt-lg-1 me-lg-5 z-3"
+           style="background-size: cover; margin-top: 30px"
+           aria-orientation="vertical" id="profile-menu"
+           [style.visibility]="isUserDropdownOpen ? 'visible' : 'hidden'">
+        <p href="" class="px-3 py-1 text-sm text-dark d-block">hehe&#64;example.com</p>
+        <p href="" class="px-3 py-1 text-sm text-dark d-block" style="cursor:pointer;" (click)="onLogout()">Logout</p>
+        <p href="" class="px-3 py-1 text-sm text-dark d-block" style="cursor:pointer;" (click)="goToProfile()">Profile</p>
+      </div>
     </div>
   </div>
 </nav>
+

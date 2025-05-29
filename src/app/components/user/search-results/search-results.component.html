@@ -1,0 +1,158 @@
+<app-user-nav></app-user-nav>
+<div class="search-results-container mt-xxl-5">
+  <!-- Navigation Tabs -->
+  <ul class="nav nav-tabs mb-4">
+    <li class="nav-item" *ngIf="movies">
+      <a class="nav-link" [class.active]="activeTab === 'movies'" (click)="setActiveTab('movies')">
+        <i class="bi bi-film"></i> Movies <span class="badge bg-primary-blue">{{movies.length}}</span>
+      </a>
+    </li>
+    <li class="nav-item" *ngIf="shows">
+      <a class="nav-link" [class.active]="activeTab === 'shows'" (click)="setActiveTab('shows')">
+        <i class="bi bi-ticket-perforated"></i> Shows <span class="badge bg-primary-blue">{{shows.length}}</span>
+      </a>
+    </li>
+    <li class="nav-item" *ngIf="hosts">
+      <a class="nav-link" [class.active]="activeTab === 'hosts'" (click)="setActiveTab('hosts')">
+        <i class="bi bi-person"></i> Hosts <span class="badge bg-primary-blue">{{hosts.length}}</span>
+      </a>
+    </li>
+  </ul>
+
+  <!-- Movies Section -->
+  <div class="tab-content" *ngIf="activeTab === 'movies'">
+    <h2 class="section-title">Movies</h2>
+
+    <!-- Skeleton Loading for Movies -->
+    <div class="row g-4" *ngIf="isLoading">
+      <div class="col-md-6 col-lg-3" *ngFor="let item of skeletonItems">
+        <div class="card movie-card skeleton-card h-100">
+          <div class="skeleton-img"></div>
+          <div class="card-body">
+            <div class="skeleton-text" [style.width]="'85%'"></div>
+            <div class="skeleton-text" [style.width]="'65%'"></div>
+            <div class="skeleton-text" [style.width]="getRandomWidth()"></div>
+            <div class="d-flex flex-wrap gap-1 mt-3">
+              <div class="skeleton-badge" *ngFor="let i of [1,2,3]"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Actual Movie Cards -->
+    <div class="row g-4" *ngIf="!isLoading">
+      <div class="col-md-6 col-lg-3" *ngFor="let movie of movies">
+        <div class="card movie-card h-100 fade-in">
+          <img [src]="movie.poster" class="card-img-top" [alt]="movie.title">
+          <div class="card-body">
+            <h5 class="card-title">{{movie.title}}</h5>
+            <p class="card-text language"><i class="bi bi-translate"></i> {{movie.language}}</p>
+            <p class="card-text cast"><i class="bi bi-people"></i> {{movie.casts}}</p>
+            <div class="genres mt-2">
+              <span class="badge bg-primary-yellow text-dark me-1 mb-1" *ngFor="let genre of movie.genres">
+                {{genre}}
+              </span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button class="btn btn-primary-pink w-100" (click)="openMovie(movie.movieId)">Book Tickets</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shows Section -->
+  <div class="tab-content" *ngIf="activeTab === 'shows'">
+    <h2 class="section-title">Shows</h2>
+
+    <!-- Skeleton Loading for Shows -->
+    <div class="row g-4" *ngIf="isLoading">
+      <div class="col-md-6 col-lg-4" *ngFor="let item of skeletonItems">
+        <div class="card show-card skeleton-card h-100">
+          <div class="skeleton-img"></div>
+          <div class="card-body">
+            <div class="skeleton-text" [style.width]="'85%'"></div>
+            <div class="skeleton-text" [style.width]="'65%'"></div>
+            <div class="skeleton-text" [style.width]="getRandomWidth()"></div>
+            <div class="skeleton-text" [style.width]="getRandomWidth()"></div>
+            <div class="skeleton-badge mt-2"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Actual Show Cards -->
+    <div class="row g-4" *ngIf="!isLoading">
+      <div class="col-md-6 col-lg-4" *ngFor="let show of shows">
+        <div class="card show-card h-100 fade-in">
+          <img [src]="show.poster" class="card-img-top" [alt]="show.showName">
+          <div class="card-body">
+            <h5 class="card-title">{{show.showName}}</h5>
+            <p class="card-text date-time">
+              <i class="bi bi-calendar-event"></i> {{show.showDate | date:'mediumDate'}} at {{show.showTime}}
+            </p>
+            <p class="card-text location">
+              <i class="bi bi-geo-alt"></i> {{show.location}}
+            </p>
+            <span class="badge bg-primary-blue">{{show.showType}}</span>
+          </div>
+          <div class="card-footer">
+            <button class="btn btn-primary-pink w-100" (click)="openShow(show.showId)">Book Tickets</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hosts Section -->
+  <div class="tab-content" *ngIf="activeTab === 'hosts'">
+    <h2 class="section-title">Hosts</h2>
+
+    <!-- Skeleton Loading for Hosts -->
+    <div class="row g-4" *ngIf="isLoading">
+      <div class="col-md-6 col-lg-4" *ngFor="let item of skeletonItems.slice(0, 3)">
+        <div class="card host-card skeleton-card h-100">
+          <div class="skeleton-img-circle mx-auto mt-3"></div>
+          <div class="card-body text-center">
+            <div class="skeleton-text mx-auto" [style.width]="'60%'"></div>
+            <div class="skeleton-text mx-auto" [style.width]="'40%'"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Actual Host Cards -->
+    <div class="row g-4" *ngIf="!isLoading">
+      <div class="col-md-6 col-lg-4" *ngFor="let host of hosts">
+        <div class="card host-card h-100 fade-in">
+          <div class="text-center pt-3">
+            <img [src]="host.name" class="rounded-circle host-img" [alt]="host.name">
+          </div>
+          <div class="card-body text-center">
+            <h5 class="card-title">{{host.name}}</h5>
+            <p class="card-text location">
+              <i class="bi bi-geo-alt"></i> {{host.location}}
+            </p>
+          </div>
+          <div class="card-footer">
+            <button class="btn btn-outline-primary-blue w-100">View Events</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- No Results Message -->
+  <div class="no-results" *ngIf="!isLoading &&
+    ((activeTab === 'movies' && movies.length === 0) ||
+     (activeTab === 'shows' && shows.length === 0) ||
+     (activeTab === 'hosts' && hosts.length === 0))">
+    <div class="text-center py-5">
+      <i class="bi bi-search display-1 text-muted"></i>
+      <h3 class="mt-3">No results found</h3>
+      <p class="text-muted">Try adjusting your search criteria</p>
+    </div>
+  </div>
+</div>

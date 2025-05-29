@@ -1,4 +1,9 @@
+<app-user-nav></app-user-nav>
 <div class="container my-5 show-booking">
+  <div *ngIf="isLoading" class="loading-overlay">
+    <mat-spinner></mat-spinner>
+    <p>Processing payment...</p>
+  </div>
   <!-- Show Details Card -->
   <div class="card mb-4 shadow-sm show-details-card">
     <div class="show-poster">
@@ -69,7 +74,7 @@
             <h5 class="mb-0">{{ category.name }}</h5>
             <p class="text-muted mb-0">{{ category.description }}</p>
           </div>
-          <div class="price">{{ category.price | currency }}</div>
+          <div class="price">{{ category.price | currency: 'INR' }}</div>
         </div>
 
         <div class="ticket-counter">
@@ -118,21 +123,21 @@
       <div class="summary-item">
         <div class="d-flex justify-content-between">
           <span>Subtotal</span>
-          <span>{{ getSubtotal() | currency }}</span>
+          <span>{{ getSubtotal() | currency: 'INR' }}</span>
         </div>
       </div>
 
       <div class="summary-item">
         <div class="d-flex justify-content-between">
           <span>Tax (8%)</span>
-          <span>{{ getTax() | currency }}</span>
+          <span>{{ getTax() | currency: 'INR' }}</span>
         </div>
       </div>
 
       <div class="summary-item total">
         <div class="d-flex justify-content-between">
           <span><strong>Total</strong></span>
-          <span><strong>{{ getTotal() | currency }}</strong></span>
+          <span><strong>{{ getTotal() | currency: 'INR' }}</strong></span>
         </div>
       </div>
 

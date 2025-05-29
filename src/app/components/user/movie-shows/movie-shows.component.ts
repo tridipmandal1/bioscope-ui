@@ -5,13 +5,16 @@ import {UserService} from "../../../service/user.service";
 import {AlertService} from "../../../service/alert.service";
 import {Movie} from "../../../model/Movie";
 import {User} from "../../../model/User";
+import {ShowModel} from "../../../model/ShowModel";
+import {UserNavComponent} from "../user-nav/user-nav.component";
 
 @Component({
   selector: 'app-movie-shows',
   standalone: true,
   imports: [
     NgForOf,
-    NgIf
+    NgIf,
+    UserNavComponent
   ],
   templateUrl: './movie-shows.component.html',
   styleUrl: './movie-shows.component.css'
@@ -32,7 +35,6 @@ export class MovieShowsComponent implements OnInit{
               private alertService: AlertService) { }
 
   ngOnInit(): void {
-    this.generateDates();
     this.selectedDate = this.sortedDates[0];
     this.loadCinemaHalls();
     let movieId = decodeURIComponent(this.activatedRoute.snapshot.params['id']);
@@ -42,49 +44,46 @@ export class MovieShowsComponent implements OnInit{
           this.userService.getMovie(movieId).subscribe({
             next: (response) => {
               this.movie = response.body;
+              console.log(this.movie);
+              this.userService.getHostsByMovieNameAndLocation(this.movie.title, location)
+                .subscribe({
+                  next: (response) => {
+                    this.allHosts = response.body;
+                    console.log('all hosts:', this.allHosts);
+                    this.allHosts.forEach((host) => {
+                      host.shows.forEach((show) => {
+                        console.log('putting date:', show.showDate);
+                        this.availableDates.add(show.showDate);
+                      });
+                      host.shows.filter(show => show.movie.title===this.movie.title)
+                    });
+                    this.selectedDate = this.sortDateSet(this.availableDates)[0];
+                    this.sortedDates = this.sortDateSet(this.availableDates);
+                    this.loadCinemaHalls();
+                  },
+                  error: (error) => {
+                    console.error('Error fetching hosts:', error);
+                  }
+                });
             },
             error: (error) => {
               console.error('Error fetching movie details:', error);
             }
           });
-          this.userService.getHostsByMovieNameAndLocation(this.movie.title, location)
-            .subscribe({
-            next: (response) => {
-              this.allHosts = response.body;
-              this.allHosts.forEach((host) => {
-                host.shows.forEach((show) => {
-                  this.availableDates.add(show.showDate);
-                });
-              });
-            },
-            error: (error) => {
-              console.error('Error fetching hosts:', error);
-            }
-          });
       }else {
-        this.alertService.openAlert({isError: true, message: 'Please select a location first!'});
+        console.error('Location not found in local storage' + location);
       }
     }
   }
 
-  generateDates(): void {
-    const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    const today = new Date();
+  getWeekdayFromDate(dateStr: string): string {
+    const [day, month, year] = dateStr.split('-').map(Number);
+    const date = new Date(year, month - 1, day); // JS months are 0-indexed
 
-    // Generate dates for the next 7 days
-    for (let i = 0; i < 7; i++) {
-      const date = new Date();
-      date.setDate(today.getDate() + i);
-
-      const dateOption: DateOption = {
-        day: days[date.getDay()],
-        date: date.getDate().toString(),
-        value: this.formatDate(date)
-      };
-
-      this.availableDates.push(dateOption);
-    }
+    const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    return weekdays[date.getDay()];
   }
+
 
   formatDate(date: Date): string {
     const year = date.getFullYear();
@@ -94,92 +93,38 @@ export class MovieShowsComponent implements OnInit{
   }
 
   loadCinemaHalls(): void {
-    // This would typically come from an API
-    // Mock data for demonstration
-    this.cinemaHalls = [
-      {
-        id: 1,
-        name: 'PVR Cinemas',
-        location: 'Downtown Mall, Central Avenue',
-        date: this.availableDates[0].value,
-        shows: [
-          { id: 101, time: '10:30 AM', price: 12.99 },
-          { id: 102, time: '1:45 PM', price: 14.99 },
-          { id: 103, time: '5:15 PM', price: 16.99 },
-          { id: 104, time: '9:00 PM', price: 18.99 }
-        ]
-      },
-      {
-        id: 2,
-        name: 'INOX Multiplex',
-        location: 'City Center, West Boulevard',
-        date: this.availableDates[0].value,
-        shows: [
-          { id: 201, time: '11:00 AM', price: 11.99 },
-          { id: 202, time: '2:30 PM', price: 13.99 },
-          { id: 203, time: '6:00 PM', price: 15.99 },
-          { id: 204, time: '9:30 PM', price: 17.99 }
-        ]
-      },
-      {
-        id: 3,
-        name: 'Cinepolis',
-        location: 'Riverside Mall, East Street',
-        date: this.availableDates[0].value,
-        shows: [
-          { id: 301, time: '10:00 AM', price: 10.99 },
-          { id: 302, time: '1:15 PM', price: 12.99 },
-          { id: 303, time: '4:45 PM', price: 14.99 },
-          { id: 304, time: '8:30 PM', price: 16.99 }
-        ]
-      },
-      {
-        id: 4,
-        name: 'PVR Cinemas',
-        location: 'Downtown Mall, Central Avenue',
-        date: this.availableDates[1].value,
-        shows: [
-          { id: 401, time: '11:30 AM', price: 12.99 },
-          { id: 402, time: '2:45 PM', price: 14.99 },
-          { id: 403, time: '6:15 PM', price: 16.99 },
-          { id: 404, time: '10:00 PM', price: 18.99 }
-        ]
-      },
-      {
-        id: 5,
-        name: 'INOX Multiplex',
-        location: 'City Center, West Boulevard',
-        date: this.availableDates[1].value,
-        shows: [
-          { id: 501, time: '12:00 PM', price: 11.99 },
-          { id: 502, time: '3:30 PM', price: 13.99 },
-          { id: 503, time: '7:00 PM', price: 15.99 }
-        ]
-      }
-    ];
+    console.log('all dates', this.availableDates);
+    console.log('all dates sorted', this.sortDateSet(this.availableDates));
+    console.log('Loading cinema halls for date:', this.selectedDate);
+    // this.filteredHosts = this.allHosts
+    //   .map(host => ({
+    //     ...host,
+    //     shows: host.shows.filter(show => show.showDate === this.selectedDate)
+    //   }))
+    //   .filter(host => host.shows.length > 0);
+
+    this.allHosts.forEach(host => {
+      console.log()
+      let fShows = host.shows
+        .filter(show => show.showDate === this.selectedDate && show.movie.movieId === this.movie.movieId);
+      console.log('Filtered shows:', fShows);
+      this.filteredHosts.push({...host, shows: fShows});
+    })
+    console.log('Filtered hosts:', this.filteredHosts);
   }
 
   selectDate(date: string): void {
     this.selectedDate = date;
+    console.log('Selected date:', this.selectedDate);
+    this.filteredHosts = [];
+    this.loadCinemaHalls();
   }
 
-  getHallsForSelectedDate(): CinemaHall[] {
-    return this.cinemaHalls.filter(hall => hall.date === this.selectedDate);
-  }
 
-  selectShow(hall: CinemaHall, show: ShowTime): void {
-    // This would typically navigate to a booking page or open a modal
-    console.log(`Selected show: ${show.time} at ${hall.name} on ${this.selectedDate}`);
-    alert(`Selected show: ${show.time} at ${hall.name} on ${this.selectedDate}`);
-    // You could implement navigation to booking page:
-    // this.router.navigate(['/booking'], {
-    //   queryParams: {
-    //     movieId: this.movie.id,
-    //     hallId: hall.id,
-    //     showId: show.id,
-    //     date: this.selectedDate
-    //   }
-    // });
+  selectShow(hall: User, show: ShowModel): void {
+    const urlTree = this.router
+      .createUrlTree(['/movie/shows/seating', encodeURIComponent(show.showId)]);
+    this.router.navigateByUrl(urlTree).then(r => {});
   }
 
   sortDateSet(dateSet: Set<string>): string[] {
